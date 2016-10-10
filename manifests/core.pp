@@ -18,12 +18,12 @@ define solr::core (
 
   file { "/opt/solr/solr/${core_name}/conf/schema.xml":
     ensure => 'file',
-    source => '/opt/sapi/schema.xml'
+    source => $schema_source
   }
 
   file { "/opt/solr/solr/${core_name}/conf/solrconfig.xml":
     ensure => 'file',
-    source => '/opt/sapi/solrconfig.xml'
+    source => $solrconfig_source
   }
 
   File["/opt/solr/solr/${core_name}"] ~> Class['solr::service']
