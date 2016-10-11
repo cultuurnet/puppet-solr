@@ -26,7 +26,13 @@ define solr::core (
     source => $solrconfig_source
   }
 
+  file { "/opt/solr/solr/${core_name}/core.properties":
+    ensure  => 'file',
+    content => "name=${core_name}\n"
+  }
+
   File["/opt/solr/solr/${core_name}"] ~> Class['solr::service']
+  File["/opt/solr/solr/${core_name}/core.properties"] ~> Class['solr::service']
   File["/opt/solr/solr/${core_name}/conf/schema.xml"] ~> Class['solr::service']
   File["/opt/solr/solr/${core_name}/conf/solrconfig.xml"] ~> Class['solr::service']
 }
