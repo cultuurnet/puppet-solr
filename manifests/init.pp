@@ -23,6 +23,7 @@ class solr (
   }
 
   Class['solr::install'] -> Class['solr::config']
+  Class['solr::install'] -> Solr::Core <| |>
   Class['solr::config'] ~> Class['solr::service']
   Solr::Core <| |> ~> Class['solr::service']
 }
