@@ -14,9 +14,9 @@ class solr (
   $cores          = {}
 ) inherits solr::params {
 
-  include solr::install
-  include solr::config
-  include solr::service
+  contain solr::install
+  contain solr::config
+  contain solr::service
 
   if is_hash($cores) {
     create_resources(solr::core, $cores)
