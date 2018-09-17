@@ -20,7 +20,7 @@ class solr (
   $start_heap_java_option = "-Xms${solr::start_heap}"
   $max_heap_java_option = "-Xmx${solr::max_heap}"
 
-  $solr_java_options = join($default_java_options + $default_heap_java_option + $max_heap_java_option + $java_options, ' ')
+  $solr_java_options = join($default_java_options + $start_heap_java_option + $max_heap_java_option + $java_options, ' ')
 
   contain solr::install
   contain solr::config
