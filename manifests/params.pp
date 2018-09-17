@@ -3,13 +3,15 @@ class solr::params {
     'Ubuntu': {
       case $::operatingsystemrelease {
         '14.04': {
-          $ensure = 'present'
-          $user = 'solr'
-          $group = 'solr'
-          $home_dir = '/home/solr'
+          $ensure         = 'present'
+          $user           = 'solr'
+          $group          = 'solr'
+          $home_dir       = '/home/solr'
           $package_name   = 'solr'
           $package_ensure = 'present'
           $max_heap       = '256m'
+          $start_heap     = '256m'
+          $java_options   = []
           $listen_address = '127.0.0.1'
           $listen_port    = '8983'
           $service_manage = true
