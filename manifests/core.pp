@@ -11,9 +11,10 @@ define solr::core (
   }
 
   file { "/opt/solr/solr/${core_name}":
-    ensure  => 'directory',
-    source  => '/opt/solr/example/collection1',
-    recurse => true
+    ensure       => 'directory',
+    source       => '/opt/solr/example/collection1',
+    recurse      => true,
+    recurselimit => '2'
   }
 
   file { "/opt/solr/solr/${core_name}/conf/schema.xml":
