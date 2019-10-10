@@ -1,6 +1,7 @@
 define solr::core (
   $schema_source,
-  $solrconfig_source
+  $solrconfig_source,
+  $synonyms_source = '/opt/solr/example/collection1/conf/synonyms.txt'
 ) {
 
   $core_name = $title
@@ -15,9 +16,10 @@ define solr::core (
   }
 
   file { "/opt/solr/solr/${core_name}/conf":
-    ensure       => 'directory',
-    source       => '/opt/solr/example/collection1/conf',
-    recurse      => true
+    ensure  => 'directory',
+    source  => '/opt/solr/example/collection1/conf',
+    recurse => true,
+    ignore  => '*/synonyms.txt'
   }
 
   file { "/opt/solr/solr/${core_name}/conf/schema.xml":
@@ -30,6 +32,11 @@ define solr::core (
     source => $solrconfig_source
   }
 
+  file { "/opt/solr/solr/${core_name}/conf/synonyms.txt":
+    ensure => 'file',
+    source => $synonyms_source
+  }
+
   file { "/opt/solr/solr/${core_name}/core.properties":
     ensure  => 'file',
     content => "name=${core_name}\n"
@@ -39,4 +46,5 @@ define solr::core (
   File["/opt/solr/solr/${core_name}/core.properties"] ~> Class['solr::service']
   File["/opt/solr/solr/${core_name}/conf/schema.xml"] ~> Class['solr::service']
   File["/opt/solr/solr/${core_name}/conf/solrconfig.xml"] ~> Class['solr::service']
+  File["/opt/solr/solr/${core_name}/conf/synonyms.txt"] ~> Class['solr::service']
 }
