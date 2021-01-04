@@ -2,7 +2,7 @@ class solr::params {
   case $::operatingsystem {
     'Ubuntu': {
       case $::operatingsystemrelease {
-        '14.04': {
+        '14.04', '16.04': {
           $ensure         = 'present'
           $user           = 'solr'
           $group          = 'solr'
